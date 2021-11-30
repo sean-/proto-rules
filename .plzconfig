@@ -1,0 +1,72 @@
+; TODO(jpoole): this plugin shouldn't contain the actually proto languages
+[Python]
+ModuleDir = third_party.python
+
+[Go]
+ImportPath = github.com/please-build/proto-rules
+
+[PluginDefinition]
+name = proto
+
+[Plugin "proto"]
+GoPlugin = //third_party/go:protoc-gen-go
+ProtocTool = //third_party/proto:protoc
+
+[FeatureFlags]
+ExcludeProtoRules = true
+
+[PluginConfig "definitions"]
+ConfigKey = Definition
+Repeatable = true
+DefaultValue = @self//build_defs/languages:go
+DefaultValue = @self//build_defs/languages:py
+DefaultValue = @self//build_defs/languages:js
+
+[PluginConfig "protoc_tool"]
+ConfigKey = ProtocTool
+DefaultValue = protoc
+
+[PluginConfig "protoc_flags"]
+ConfigKey = ProtocFlags
+Repeatable = true
+Optional = true
+
+[PluginConfig "java_dep"]
+ConfigKey = JavaDep
+DefaultValue = //third_party/java:protobuf
+
+[PluginConfig "grpc_java_dep"]
+ConfigKey = JavaGrpcDep
+DefaultValue = //third_party/java:grpc
+
+[PluginConfig "go_dep"]
+ConfigKey = GoDep
+DefaultValue = //third_party/go:protobuf
+
+[PluginConfig "grpc_go_dep"]
+ConfigKey = GoGrpcDep
+DefaultValue = //third_party/go:grpc
+
+[PluginConfig "python_dep"]
+ConfigKey = PythonDep
+DefaultValue = //third_party/python:protobuf
+
+[PluginConfig "grpc_python_dep"]
+ConfigKey = PythonGrpcDep
+DefaultValue = //third_party/python:grpc
+
+[PluginConfig "js_dep"]
+ConfigKey = JsDep
+Optional = true
+
+[PluginConfig "go_plugin"]
+ConfigKey = GoPlugin
+DefaultValue = protoc-gen-go
+
+[PluginConfig "grpc_go_plugin"]
+ConfigKey = GoGrpcPlugin
+Optional = true
+
+[PluginConfig "grpc_python_plugin"]
+ConfigKey = PythonGrpcPlugin
+DefaultValue = grpc_python_plugin
