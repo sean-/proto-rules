@@ -20,8 +20,11 @@ subinclude(
 _DEFAULT_GRPC_LABELS = ['grpc']
 
 
-def _merge_dicts(lhs_dict, rhs_dict):
+def merge_languages(lhs_dict, rhs_dict):
     """Merges dictionary a into dictionary b, overwriting where a's values are not None."""
+    if not lhs_dict:
+        return rhs_dict
+
     if not isinstance(lhs_dict, dict):
         return {lang: rhs_dict[lang] for lang in lhs_dict}  # Languages can be passed as just a list.
     return {k: v or rhs_dict[k] for k, v in lhs_dict.items()}
@@ -49,7 +52,7 @@ def proto_library(name:str, srcs:list, deps:list=[], visibility:list=None, label
       additional_context (dict): Additional language context to be passed to the `proto_language()` build definition.
                                  This can be used to provide language specific parameters.
     """
-    languages = _merge_dicts(languages, proto_languages()) if languages else proto_languages()
+    languages = merge_languages(languages, proto_languages())
     lang_plugins = sorted(languages.items())
 
     # If the protoc tool is a build rule, depend on it as it's probably a protoc_binary() which provides the well known
@@ -122,7 +125,7 @@ def grpc_library(name:str, srcs:list, deps:list=None, visibility:list=None, lang
         name = name,
         srcs = srcs,
         deps = deps,
-        languages = _merge_dicts(languages, grpc_languages()) if languages else grpc_languages(),
+        languages = merge_languages(languages, grpc_languages()),
         visibility = visibility,
         labels = labels + _DEFAULT_GRPC_LABELS,
         test_only = test_only,

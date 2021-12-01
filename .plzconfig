@@ -1,7 +1,4 @@
 ; TODO(jpoole): this plugin shouldn't contain the actually proto languages
-[Parse]
-PreloadSubincludes = @python//build_defs:python
-
 [Plugin "python"]
 ModuleDir = third_party.python
 WheelRepo = https://get.please.build/third_party/python/py3
@@ -12,15 +9,15 @@ ImportPath = github.com/please-build/proto-rules
 [PluginDefinition]
 name = proto
 
-[Plugin "proto"]
-GoPlugin = //third_party/go:protoc-gen-go
-GoGrpcPlugin = //third_party/go:protoc-gen-go-grpc
-ProtocTool = //third_party/proto:protoc
-
 [FeatureFlags]
 ExcludeProtoRules = true
 ExcludePythonRules = true
 ExcludeJavaRules = true
+
+[Plugin "proto"]
+GoPlugin = //third_party/go:protoc-gen-go
+GoGrpcPlugin = //third_party/go:protoc-gen-go-grpc
+ProtocTool = //third_party/proto:protoc
 
 [PluginConfig "definitions"]
 ConfigKey = Definition
@@ -34,7 +31,7 @@ ConfigKey = ProtocTool
 DefaultValue = protoc
 
 [PluginConfig "protoc_flags"]
-ConfigKey = ProtocFlags
+ConfigKey = ProtocFlag
 Repeatable = true
 Optional = true
 
@@ -72,12 +69,3 @@ DefaultValue = //third_party/go:grpc
 [PluginConfig "go_dep"]
 ConfigKey = GoDep
 DefaultValue = //third_party/go:protobuf
-
-; Java
-[PluginConfig "java_dep"]
-ConfigKey = JavaDep
-DefaultValue = //third_party/java:protobuf
-
-[PluginConfig "grpc_java_dep"]
-ConfigKey = JavaGrpcDep
-DefaultValue = //third_party/java:grpc
