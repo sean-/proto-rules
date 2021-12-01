@@ -1,14 +1,14 @@
 subinclude("//build_defs/sdk")
 
 # TODO(jpoole): Figure out how to apply the mapping stuff to the grpc plugin as well
-def _go_path_mapping(grpc):
+def _go_path_mapping():
     """Used to update the Go path mapping; by default it doesn't really import in the way we want."""
-    grpc_plugin = 'plugins=grpc,' if grpc else ''
     def _map_go_paths(rule_name):
         mapping = ',M'.join(get_labels(rule_name, 'proto:go-map:'))
         cmd = get_command(rule_name)
-        new_cmd = cmd.replace('--go_out=', f'--go_out={grpc_plugin}M{mapping}:')
-        set_command(rule_name, new_cmd)
+        cmd = cmd.replace('--go_out=', f'--go_out=M{mapping}:')
+        cmd = cmd.replace('--go-grpc_out=', f'--go-grpc_out=M{mapping}:')
+        set_command(rule_name, cmd)
     return _map_go_paths
 
 
@@ -44,7 +44,8 @@ def go_proto_library(name:str, language:str, srcs:list, deps:list=[], visibility
         srcs = srcs,
         language = language,
         tools= {"go": [CONFIG.PROTO.GO_PLUGIN]},
-        protoc_flags= protoc_flags + [
+        protoc_flags = protoc_flags,
+        plugin_flags = [
             '--go_out="$OUT_DIR"',
             '--plugin=protoc-gen-go="$(which $TOOLS_GO)"',
             '--go_opt=paths=source_relative'
@@ -54,7 +55,7 @@ def go_proto_library(name:str, language:str, srcs:list, deps:list=[], visibility
         root_dir = root_dir,
         deps = deps,
         visibility = visibility,
-        pre_build = _go_path_mapping(False),
+        pre_build = _go_path_mapping(),
     )
 
     return go_library(
@@ -69,22 +70,8 @@ def go_proto_library(name:str, language:str, srcs:list, deps:list=[], visibility
 
 def go_grpc_library(name:str, language:str, srcs:list, deps:list=[], visibility:list=None, labels:list&features&tags=[],
                       test_only:bool&testonly=False, root_dir:str='', protoc_flags:list=[], additional_context:dict=None):
-    deps += [CONFIG.PROTO.GO_DEP, CONFIG.PROTO.GRPC_GO_DEP]
-    tools = {'go': [CONFIG.PROTO.GO_PLUGIN]}
-    protoc_flags = protoc_flags + [
-        '--go_out="$OUT_DIR"',
-        '--plugin=protoc-gen-go="`which $TOOLS_GO`"',
-        '--go_opt=paths=source_relative',
-    ]
-    grpc = True
-    if CONFIG.PROTO.GRPC_GO_PLUGIN:
-        grpc = False
-        tools["grpc_go"] = [CONFIG.PROTO.GRPC_GO_PLUGIN]
-        protoc_flags += [
-            '--go-grpc_out="$OUT_DIR"',
-            '--plugin=protoc-gen-go-grpc="$(which $TOOLS_GRPC_GO)"',
-            '--go-grpc_opt=paths=source_relative',
-        ]
+    deps += [CONFIG.PROTO.GO_DEP, CONFIG.PROTO.GO_GRPC_DEP]
+    tools = {'go': [CONFIG.PROTO.GO_PLUGIN], "grpc_go": [CONFIG.PROTO.GO_GRPC_PLUGIN]}
 
     protoc = protoc_rule(
         name = name,
@@ -92,12 +79,20 @@ def go_grpc_library(name:str, language:str, srcs:list, deps:list=[], visibility:
         language = language,
         tools = tools,
         protoc_flags = protoc_flags,
+        plugin_flags = [
+            '--plugin=protoc-gen-go="`which $TOOLS_GO`"',
+            '--go_out="$OUT_DIR"',
+            '--go_opt=paths=source_relative',
+            '--plugin=protoc-gen-go-grpc="$(which $TOOLS_GRPC_GO)"',
+            '--go-grpc_out="$OUT_DIR"',
+            '--go-grpc_opt=paths=source_relative',
+        ],
         labels = labels + _go_mapping_labels(srcs, root_dir),
         test_only = test_only,
         root_dir = root_dir,
         deps = deps,
         visibility = visibility,
-        pre_build = _go_path_mapping(grpc),
+        pre_build = _go_path_mapping(),
     )
 
     return go_library(

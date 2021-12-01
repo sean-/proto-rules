@@ -10,6 +10,7 @@ name = proto
 
 [Plugin "proto"]
 GoPlugin = //third_party/go:protoc-gen-go
+GoGrpcPlugin = //third_party/go:protoc-gen-go-grpc
 ProtocTool = //third_party/proto:protoc
 
 [FeatureFlags]
@@ -31,21 +32,10 @@ ConfigKey = ProtocFlags
 Repeatable = true
 Optional = true
 
-[PluginConfig "java_dep"]
-ConfigKey = JavaDep
-DefaultValue = //third_party/java:protobuf
-
-[PluginConfig "grpc_java_dep"]
-ConfigKey = JavaGrpcDep
-DefaultValue = //third_party/java:grpc
-
-[PluginConfig "go_dep"]
-ConfigKey = GoDep
-DefaultValue = //third_party/go:protobuf
-
-[PluginConfig "grpc_go_dep"]
-ConfigKey = GoGrpcDep
-DefaultValue = //third_party/go:grpc
+; Python
+[PluginConfig "python_grpc_plugin"]
+ConfigKey = PythonGrpcPlugin
+DefaultValue = grpc_python_plugin
 
 [PluginConfig "python_dep"]
 ConfigKey = PythonDep
@@ -55,18 +45,33 @@ DefaultValue = //third_party/python:protobuf
 ConfigKey = PythonGrpcDep
 DefaultValue = //third_party/python:grpc
 
+; Javascript
 [PluginConfig "js_dep"]
 ConfigKey = JsDep
 Optional = true
 
+; Golang
 [PluginConfig "go_plugin"]
 ConfigKey = GoPlugin
 DefaultValue = protoc-gen-go
 
-[PluginConfig "grpc_go_plugin"]
+[PluginConfig "go_grpc_plugin"]
 ConfigKey = GoGrpcPlugin
-Optional = true
+DefaultValue = protoc-gen-go-grpc
 
-[PluginConfig "grpc_python_plugin"]
-ConfigKey = PythonGrpcPlugin
-DefaultValue = grpc_python_plugin
+[PluginConfig "go_grpc_dep"]
+ConfigKey = GoGrpcDep
+DefaultValue = //third_party/go:grpc
+
+[PluginConfig "go_dep"]
+ConfigKey = GoDep
+DefaultValue = //third_party/go:protobuf
+
+; Java
+[PluginConfig "java_dep"]
+ConfigKey = JavaDep
+DefaultValue = //third_party/java:protobuf
+
+[PluginConfig "grpc_java_dep"]
+ConfigKey = JavaGrpcDep
+DefaultValue = //third_party/java:grpc

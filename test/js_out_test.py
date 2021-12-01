@@ -10,4 +10,4 @@ class JsOutTest(unittest.TestCase):
         We don't have proper JS support yet, so this is just testing we can
         generate a JS proto file
         """
-        self.assertTrue(os.path.isfile('test/proto_rules/js_test_pb.js'))
+        self.assertTrue(os.path.isfile('test/js_test_pb.js'))

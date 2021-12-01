@@ -24,15 +24,3 @@ python_test(
         ":js_test_proto_filegroup",
     ],
 )
-
-grpc_library(
-    name = "flags_proto",
-    srcs = ["flags.proto"],
-    languages = ["go"],
-)
-
-go_test(
-    name = "flags_test",
-    srcs = ["flags_test.go"],
-    deps = [":flags_proto"],
-)
