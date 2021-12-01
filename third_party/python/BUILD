@@ -1,4 +1,4 @@
-package(python_wheel_repo = "https://get.please.build/third_party/python/py3")
+subinclude("@python//build_defs:python")
 
 python_wheel(
     name = "protobuf",

@@ -1,6 +1,10 @@
 ; TODO(jpoole): this plugin shouldn't contain the actually proto languages
-[Python]
+[Parse]
+PreloadSubincludes = @python//build_defs:python
+
+[Plugin "python"]
 ModuleDir = third_party.python
+WheelRepo = https://get.please.build/third_party/python/py3
 
 [Go]
 ImportPath = github.com/please-build/proto-rules
@@ -15,6 +19,8 @@ ProtocTool = //third_party/proto:protoc
 
 [FeatureFlags]
 ExcludeProtoRules = true
+ExcludePythonRules = true
+ExcludeJavaRules = true
 
 [PluginConfig "definitions"]
 ConfigKey = Definition
