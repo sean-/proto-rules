@@ -1,0 +1,45 @@
+; TODO(jpoole): this plugin shouldn't contain the actually proto languages
+
+[Plugin "proto"]
+Definition = //build_defs/languages:js
+
+[Plugin "python"]
+ModuleDir = third_party.python
+WheelRepo = https://get.please.build/third_party/python/py3
+
+[FeatureFlags]
+ExcludeProtoRules = true
+ExcludePythonRules = true
+
+
+[PluginDefinition]
+name = proto
+
+[PluginConfig "definitions"]
+ConfigKey = Definition
+Repeatable = true
+
+[PluginConfig "protoc_tool"]
+ConfigKey = ProtocTool
+DefaultValue = protoc
+
+[PluginConfig "protoc_flags"]
+ConfigKey = ProtocFlag
+Repeatable = true
+Optional = true
+
+
+; Python
+[PluginConfig "python_grpc_plugin"]
+ConfigKey = PythonGrpcPlugin
+DefaultValue = grpc_python_plugin
+
+[PluginConfig "python_dep"]
+ConfigKey = PythonDep
+DefaultValue = //third_party/python:protobuf
+
+[PluginConfig "python_grpc_dep"]
+ConfigKey = PythonGrpcDep
+DefaultValue = //third_party/python:grpc
+
+
