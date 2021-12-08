@@ -1,14 +1,12 @@
 # Proto rules
-Protobuff rules for the [Please](https://please.build) build system.
+Protobuf rules for the [Please](https://please.build) build system.
 
 # Basic usage 
 First add the base proto plugin to your project:
 ```python
 # BUILD
-# This adds the plugin to your project
-github_repo(
+plugin_repo(
     name = "proto",
-    repo = "please-build/proto-rules",
     revision = "<Some git tag, commit, or other reference>",
 )
 ```

@@ -1,7 +1,6 @@
 ; TODO(jpoole): this plugin shouldn't contain the actually proto languages
 
-[Plugin "proto"]
-Definition = //build_defs/languages:js
+
 
 [Plugin "python"]
 ModuleDir = third_party.python
@@ -16,7 +15,7 @@ ExcludePythonRules = true
 name = proto
 
 [PluginConfig "definitions"]
-ConfigKey = Definition
+ConfigKey = LanguageDef
 Repeatable = true
 
 [PluginConfig "protoc_tool"]
