@@ -1,5 +1,4 @@
-subinclude("//build_defs/sdk")
-subinclude("@python//build_defs:python")
+subinclude("//build_defs/sdk", "@python//build_defs:python")
 
 def py_proto_library(name:str, language:str, srcs:list, deps:list=[], visibility:list=None, labels:list&features&tags=[],
                       test_only:bool&testonly=False, root_dir:str='', protoc_flags:list=[], additional_context:dict=None):

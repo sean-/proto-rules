@@ -9,3 +9,13 @@ proto_build_defs(
         "proto_language": ["js_proto_language"],
     }
 )
+
+proto_build_defs(
+    name = "py",
+    srcs = ["py.build_defs"],
+    visibility = ["PUBLIC"],
+    proto_languages = {
+        "grpc_language": ["py_grpc_language"],
+        "proto_language": ["py_proto_language"],
+    }
+)
