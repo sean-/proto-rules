@@ -6,6 +6,9 @@ WheelRepo = https://get.please.build/third_party/python/py3
 [Go]
 ImportPath = github.com/please-build/proto-rules
 
+[Plugin "proto"]
+Definition = //build_defs/languages:js
+
 [PluginDefinition]
 name = proto
 
@@ -22,9 +25,7 @@ ProtocTool = //third_party/proto:protoc
 [PluginConfig "definitions"]
 ConfigKey = Definition
 Repeatable = true
-DefaultValue = @self//build_defs/languages:go
-DefaultValue = @self//build_defs/languages:py
-DefaultValue = @self//build_defs/languages:js
+Optional = true
 
 [PluginConfig "protoc_tool"]
 ConfigKey = ProtocTool
@@ -35,37 +36,3 @@ ConfigKey = ProtocFlag
 Repeatable = true
 Optional = true
 
-; Python
-[PluginConfig "python_grpc_plugin"]
-ConfigKey = PythonGrpcPlugin
-DefaultValue = grpc_python_plugin
-
-[PluginConfig "python_dep"]
-ConfigKey = PythonDep
-DefaultValue = //third_party/python:protobuf
-
-[PluginConfig "grpc_python_dep"]
-ConfigKey = PythonGrpcDep
-DefaultValue = //third_party/python:grpc
-
-; Javascript
-[PluginConfig "js_dep"]
-ConfigKey = JsDep
-Optional = true
-
-; Golang
-[PluginConfig "go_plugin"]
-ConfigKey = GoPlugin
-DefaultValue = protoc-gen-go
-
-[PluginConfig "go_grpc_plugin"]
-ConfigKey = GoGrpcPlugin
-DefaultValue = protoc-gen-go-grpc
-
-[PluginConfig "go_grpc_dep"]
-ConfigKey = GoGrpcDep
-DefaultValue = //third_party/go:grpc
-
-[PluginConfig "go_dep"]
-ConfigKey = GoDep
-DefaultValue = //third_party/go:protobuf

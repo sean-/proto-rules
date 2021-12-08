@@ -2,7 +2,6 @@ subinclude("//build_defs/sdk")
 
 def js_proto_library(name:str, language:str, srcs:list, deps:list=[], visibility:list=None, labels:list&features&tags=[],
                       test_only:bool&testonly=False, root_dir:str='', protoc_flags:list=[], additional_context:dict=None):
-    deps += [CONFIG.PROTO.PYTHON_DEP]
     protoc = protoc_rule(
         name = name,
         srcs = srcs,
