@@ -1,6 +1,6 @@
-; TODO(jpoole): this plugin shouldn't contain the actually proto languages
-
-
+[Plugin "proto"]
+LanguageDef = //build_defs/languages:js
+LanguageDef = //build_defs/languages:py
 
 [Plugin "python"]
 ModuleDir = third_party.python
@@ -9,7 +9,6 @@ WheelRepo = https://get.please.build/third_party/python/py3
 [FeatureFlags]
 ExcludeProtoRules = true
 ExcludePythonRules = true
-
 
 [PluginDefinition]
 name = proto
