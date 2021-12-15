@@ -16,6 +16,7 @@ name = proto
 [PluginConfig "definitions"]
 ConfigKey = LanguageDef
 Repeatable = true
+Inherit = true
 
 [PluginConfig "protoc_tool"]
 ConfigKey = ProtocTool
