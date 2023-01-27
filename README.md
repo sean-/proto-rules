@@ -98,9 +98,9 @@ The build definitions for each proto or grpc language.
 
 ```
 [Plugin "proto"]
-Definition = ///python-proto//build_defs:py
-Definition = ///java-proto//build_defs:java
-Definition = ///go-proto//build_defs:go
+LanguageDef = ///python_proto//build_defs:py
+LanguageDef = ///java_proto//build_defs:java
+LanguageDef = ///go_proto//build_defs:go
 ```
 
 ## ProtocFlag (repeatable str)
@@ -220,7 +220,7 @@ proto_build_defs(
 The final step is to configure this in the repo that will be using it:
 ```
 [Plugin "proto"]
-Definitions = ///foo-proto//build_defs:foo
+LanguageDef = ///foo_proto//build_defs:foo
 ```
 
 The `proto_library()` and `grpc_library()` rules will then provide your `foo_library()` to any rules that depends on them 
@@ -235,7 +235,7 @@ build rule:
 ```python
 protoc_plugins(
     name = "grpc_gateway_languages",
-    build_defs = ["///foo-proto//build_defs:foo"],
+    build_defs = ["///foo_proto//build_defs:foo"],
     type = "grpc_language",
 )
 ```

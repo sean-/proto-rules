@@ -1,12 +1,12 @@
 subinclude("//build_defs/sdk", "@python//build_defs:python")
 
-def py_proto_library(name:str, language:str, srcs:list, deps:list=[], visibility:list=None, labels:list&features&tags=[],
+def py_proto_library(name:str, srcs:list, deps:list=[], visibility:list=None, labels:list&features&tags=[],
                       test_only:bool&testonly=False, root_dir:str='', protoc_flags:list=[], additional_context:dict=None):
     deps += [CONFIG.PROTO.PYTHON_DEP]
     protoc = protoc_rule(
         name = name,
         srcs = srcs,
-        language = language,
+        language = "py",
         protoc_flags = protoc_flags,
         plugin_flags = ['--python_out="$OUT_DIR"'],
         labels = labels,
@@ -17,7 +17,7 @@ def py_proto_library(name:str, language:str, srcs:list, deps:list=[], visibility
     )
 
     return python_library(
-        name = f"_{name}#{language}",
+        name = f"_{name}#py",
         srcs = [protoc],
         deps = deps,
         test_only = test_only,
@@ -25,7 +25,7 @@ def py_proto_library(name:str, language:str, srcs:list, deps:list=[], visibility
         visibility = visibility,
     )
 
-def py_grpc_library(name:str, language:str, srcs:list, deps:list=[], visibility:list=None, labels:list&features&tags=[],
+def py_grpc_library(name:str, srcs:list, deps:list=[], visibility:list=None, labels:list&features&tags=[],
                       test_only:bool&testonly=False, root_dir:str='', protoc_flags:list=[], additional_context:dict=None):
     deps += [CONFIG.PROTO.PYTHON_DEP, CONFIG.PROTO.PYTHON_GRPC_DEP]
     tools = {'py': [CONFIG.PROTO.PYTHON_GRPC_PLUGIN]}
@@ -36,7 +36,7 @@ def py_grpc_library(name:str, language:str, srcs:list, deps:list=[], visibility:
     protoc = protoc_rule(
         name = name,
         srcs = srcs,
-        language = language,
+        language = "py",
         tools = tools,
         protoc_flags = protoc_flags,
         plugin_flags = [
@@ -52,7 +52,7 @@ def py_grpc_library(name:str, language:str, srcs:list, deps:list=[], visibility:
     )
 
     return python_library(
-        name = f"_{name}#{language}",
+        name = f"_{name}#py",
         srcs = [protoc],
         deps = deps,
         test_only = test_only,

@@ -5,6 +5,7 @@ LanguageDef = //build_defs/languages:py
 [Plugin "python"]
 ModuleDir = third_party.python
 WheelRepo = https://get.please.build/third_party/python/py3
+Target = //:python
 
 [FeatureFlags]
 ExcludeProtoRules = true
@@ -40,5 +41,3 @@ DefaultValue = //third_party/python:protobuf
 [PluginConfig "python_grpc_dep"]
 ConfigKey = PythonGrpcDep
 DefaultValue = //third_party/python:grpc
-
-

@@ -72,7 +72,6 @@ def proto_library(name:str, srcs:list, deps:list=[], visibility:list=None, label
     for language, plugin in lang_plugins:
         provides[language] = plugin['build_def'](
             name = name,
-            language = language,
             srcs = srcs,
             deps = deps,
             visibility = visibility,

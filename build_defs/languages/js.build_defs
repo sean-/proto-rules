@@ -1,11 +1,11 @@
 subinclude("//build_defs/sdk")
 
-def js_proto_library(name:str, language:str, srcs:list, deps:list=[], visibility:list=None, labels:list&features&tags=[],
+def js_proto_library(name:str, srcs:list, deps:list=[], visibility:list=None, labels:list&features&tags=[],
                       test_only:bool&testonly=False, root_dir:str='', protoc_flags:list=[], additional_context:dict=None):
     protoc = protoc_rule(
         name = name,
         srcs = srcs,
-        language = language,
+        language = "js",
         protoc_flags = protoc_flags,
         plugin_flags = ['--js_out=import_style=commonjs,binary:"$OUT_DIR"'],
         labels = labels,
@@ -16,7 +16,7 @@ def js_proto_library(name:str, language:str, srcs:list, deps:list=[], visibility
     )
 
     return filegroup(
-        name = f"_{name}#{language}",
+        name = f"_{name}#js",
         srcs = [protoc],
         deps = deps,
         test_only = test_only,
