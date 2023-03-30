@@ -13,8 +13,8 @@ should be the return value of proto_language.
 """
 
 subinclude(
-    "//build_defs:proto_languages",
-    "//build_defs:grpc_languages",
+    "///proto//build_defs:proto_languages",
+    "///proto//build_defs:grpc_languages",
 )
 
 _DEFAULT_GRPC_LABELS = ['grpc']

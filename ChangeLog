@@ -1,14 +1,16 @@
+Version 0.2.1
+-------------
+    * Make the subincludes absolute
+
 Version 0.2.0
 -------------
     * Language protos build_defs should know what language they are for so
     removing language from the arguments
 
-
 Version 0.1.1
 -------------
     * Fix the version
     * Moved test config out into a test profile
-
 
 Version 0.1.0
 -------------
