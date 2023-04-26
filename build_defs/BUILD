@@ -17,3 +17,9 @@ filegroup(
     srcs = ["proto.build_defs"],
     visibility = ["PUBLIC"],
 )
+
+filegroup(
+    name = "legacy",
+    srcs = ["legacy.build_defs"],
+    visibility = ["PUBLIC"],
+)

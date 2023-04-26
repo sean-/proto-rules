@@ -1,43 +1,31 @@
-[Plugin "proto"]
-LanguageDef = //build_defs/languages:js
-LanguageDef = //build_defs/languages:py
-
-[Plugin "python"]
-ModuleDir = third_party.python
-WheelRepo = https://get.please.build/third_party/python/py3
-Target = //:python
-
 [FeatureFlags]
 ExcludeProtoRules = true
-ExcludePythonRules = true
+ExcludeGoRules = true
+
+[proto]
+protoctool = //third_party/proto:protoc
+protocgoplugin = //third_party/go:protoc-gen-go
+language = go
+
+[Plugin "go"]
+Target = //plugins:go
+ImportPath = github.com/please-build/proto-rules
 
 [PluginDefinition]
-name = proto
+Name = proto
 
 [PluginConfig "definitions"]
+Help = A subinclude target containing a build definition that register a new languages using proto_language()
 ConfigKey = LanguageDef
 Repeatable = true
 Inherit = true
+Optional = true
 
 [PluginConfig "protoc_tool"]
-ConfigKey = ProtocTool
+Help = The protoc tool, as either a binary in the PATH or a build label
 DefaultValue = protoc
 
 [PluginConfig "protoc_flags"]
-ConfigKey = ProtocFlag
+Help = Any additional flags to pass to protoc
 Repeatable = true
 Optional = true
-
-
-; Python
-[PluginConfig "python_grpc_plugin"]
-ConfigKey = PythonGrpcPlugin
-DefaultValue = grpc_python_plugin
-
-[PluginConfig "python_dep"]
-ConfigKey = PythonDep
-DefaultValue = //third_party/python:protobuf
-
-[PluginConfig "python_grpc_dep"]
-ConfigKey = PythonGrpcDep
-DefaultValue = //third_party/python:grpc

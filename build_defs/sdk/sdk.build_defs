@@ -52,7 +52,7 @@ def _get_languages_prebuild(label_prefix, includes):
         subincludes = ", ".join([f"\\\"{i}\\\"" for i in includes])
         language_defs = ", ".join(get_labels(name, label_prefix))
         build_def = [
-            f"echo \"subinclude({subincludes})\" >> $OUT",
+            f"echo \"subinclude({subincludes})\" >> $OUT" if subincludes else "echo",
             f"echo \"def {name}():\" >> $OUT",
             f"echo \"    langs = [l() for l in [{language_defs}]]\" >> $OUT",
              "echo \"    return {l.language: l for l in langs}\" >> $OUT",
