@@ -43,9 +43,6 @@ plugin_repo(
 Then add the proto language plugin of your choice. Please provides the following:
 * [Go](https://github.com/please-build/go-proto-rules)
 * [Python](https://github.com/please-build/python-proto-rules)
-* [C/C++](https://github.com/please-build/cc-proto-rules)
-* [Java](https://github.com/please-build/java-proto-rules)
-* [Javascript](https://github.com/please-build/java-proto-rules)
 
 Follow the setup instruction for each language you wish to generate proto code for.
 
