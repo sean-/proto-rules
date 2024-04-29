@@ -162,11 +162,7 @@ def protoc_binary(name, url:str|dict = '', version:str = '', hashes=None, deps=N
     elif CONFIG.HOSTARCH == 'x86':
         HOSTARCH = 'x86_32'
     elif CONFIG.HOSTARCH == 'arm64':
-        if CONFIG.HOSTOS == 'darwin':
-            # There's no arm64 distribution, but we can use the x86 version thanks to rosetta!
-            HOSTARCH = 'x86_64'
-        else:
-            HOSTARCH = 'aarch_64'
+        HOSTARCH = 'aarch_64'
     else:
         HOSTARCH = CONFIG.HOSTARCH
 
