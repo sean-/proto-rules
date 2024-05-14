@@ -1,3 +1,9 @@
+Version 0.4.0
+-------------
+    * Bump plugin versions
+    * Use go_toolchain
+
+
 Version 0.3.1
 -------------
     * Remove specialisation for aarch64

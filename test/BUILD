@@ -1,7 +1,6 @@
-# Tests on the proto rules.
+# Tests on the legacy proto rules.
 
 subinclude("///proto//build_defs:legacy")
-
 
 grpc_library(
     name = "flags_proto",

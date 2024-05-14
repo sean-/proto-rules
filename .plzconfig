@@ -1,21 +1,27 @@
-[FeatureFlags]
-ExcludeProtoRules = true
-ExcludeGoRules = true
+[Please]
+Version = 17.8.7
 
 [proto]
 protoctool = //third_party/proto:protoc
 protocgoplugin = //third_party/go:protoc-gen-go
 language = go
 
+[Parse]
+PreloadSubincludes = ///python//build_defs:python
+
 [Plugin "go"]
 Target = //plugins:go
 ImportPath = github.com/please-build/proto-rules
+GoTool = //third_party/go:toolchain|go
+
+[Plugin "python"]
+Target = //plugins:python
 
 [PluginDefinition]
 Name = proto
 
 [PluginConfig "definitions"]
-Help = A subinclude target containing a build definition that register a new languages using proto_language()
+Help = A subinclude target containing a build definition that registers a new language using proto_language()
 ConfigKey = LanguageDef
 Repeatable = true
 Inherit = true

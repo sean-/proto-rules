@@ -1,5 +1,11 @@
 subinclude("///go//build_defs:go")
 
+go_toolchain(
+    name = "toolchain",
+    install_std = True,
+    version = "1.22.3",
+)
+
 go_module(
     name = "protoc-gen-go",
     binary = True,
